@@ -82,3 +82,64 @@ const config = {
 
   </script>
 </body></html>
+
+<!-- devora home button -->
+<style>
+#devora-home {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(calc(100% - 6px));
+    z-index: 999999;
+    transition: transform .3s ease;
+    padding: 12px 22px 10px;
+    background: rgba(20,20,23,.92);
+    border: 1px solid rgba(255,255,255,.15);
+    border-bottom: none;
+    border-radius: 14px 14px 0 0;
+    backdrop-filter: blur(12px);
+}
+
+#devora-home:hover,
+#devora-home:focus-within {
+    transform: translateX(-50%) translateY(0);
+}
+
+#devora-home a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 30px;
+    font-size: 21px;
+}
+
+#devora-home a:hover {
+    color: #aaa;
+}
+
+@media (hover: none) {
+    #devora-home {
+        transform: translateX(-50%) translateY(0);
+        opacity: .65;
+    }
+}
+</style>
+
+<div id="devora-home">
+    <a href="sites.google.com/view/devorastudiox"
+       target="_self"
+       aria-label="return to devora home"
+       title="home">
+        <svg width="23" height="23" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="m3 10 9-7 9 7"/>
+            <path d="M5 9v12h14V9"/>
+            <path d="M9 21v-7h6v7"/>
+        </svg>
+    </a>
+</div>
