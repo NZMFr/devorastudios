@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base target="_blank">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DEVORA Studios</title>
@@ -66,10 +67,8 @@ body.matrix-background #matrix-background { display:block; }
 .games-scroll.horizontal { display:grid; grid-auto-flow:column; grid-template-rows:repeat(var(--horizontal-rows,2),var(--card-height)); grid-auto-columns:var(--card-width); grid-template-columns:none; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:thin; }
 .games-scroll.horizontal .game-card { scroll-snap-align:start; }
 .game-tag { position:absolute; z-index:4; top:12px; left:12px; padding:5px 9px; background:rgba(0,0,0,.84); color:#fff; border:1px solid rgba(255,255,255,.65); border-radius:4px; font-size:.65rem; letter-spacing:1px; }
-.game-art img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; padding:10px; background:#090a0c; opacity:1; filter:none; transition:transform .25s ease; z-index:1; }
-.game-art:has(img)::before { display:none; }
-.game-art:has(img) { background:#090a0c; }
-.game-card:hover .game-art img { transform:scale(1.025); }
+.game-art img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; filter:none; transition:transform .4s; }
+.game-card:hover .game-art img { transform:scale(1.05); }
 .games-scroll::-webkit-scrollbar { height: 6px; }
 .games-scroll::-webkit-scrollbar-track { background: transparent; }
 .games-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
@@ -92,7 +91,7 @@ body.matrix-background #matrix-background { display:block; }
 
 @media screen and (max-width: 900px) { .title { font-size: 2.5em; letter-spacing: 4px; } #clock-container { min-width: 150px; padding: 12px 16px; top: 100px; } #clock-time { font-size: 20px; } #clock-date { font-size: 12px; } #battery-container { top: 100px; } .stats-panel { display: none; } }
 @media (max-width: 768px) { .title { font-size: 2em; letter-spacing: 3px; } #battery-oval { width: 80px; height: 40px; } #battery-percent { font-size: 12px; } #clock-container { min-width: 130px; padding: 10px 14px; } #clock-time { font-size: 18px; } #battery-container { top: 110px; left: 10px; } #clock-container { top: 110px; right: 10px; } #main-content { margin-top: 200px; } }
-@media (max-width: 480px) { .games-controls { gap:6px; } .games-size-control input { width:80px; } .title { font-size: 1.5em; letter-spacing: 2px; } #clock-container { min-width: 100px; padding: 8px 12px; } #clock-time { font-size: 16px; } #clock-date { font-size: 10px; } }
+@media (max-width: 480px) { .games-controls { gap:6px; } .games-size-control input { width:80px; } .title { font-size: 1.5em; letter-spacing: 2px; } #clock-container { min-width: 100px; padding: 8px 12px; } #clock-time { font-size: 16px; } #clock-date { font-size: 10px; } .game-card { width: 220px; height: 310px; } }
 </style>
 </head>
 
@@ -126,8 +125,8 @@ body.matrix-background #matrix-background { display:block; }
 <section id="games-section">
     <div class="games-header"><span class="games-line"></span> GAMES <span class="games-line"></span></div>
     <div class="games-controls" aria-label="game display settings">
-        <button type="button" id="layout-grid" class="active" aria-pressed="true">grid view</button>
-        <button type="button" id="layout-horizontal" aria-pressed="false">horizontal view</button>
+        <button type="button" id="layout-grid" class="active" aria-pressed="true">portrait</button>
+        <button type="button" id="layout-horizontal" aria-pressed="false">landscape</button>
         <div class="games-size-control" aria-label="game card size">
             <button type="button" id="size-down" aria-label="make game cards smaller">−</button>
             <input id="game-size" type="range" min="150" max="320" step="10" value="260" aria-label="game card size">
@@ -169,14 +168,17 @@ body.matrix-background #matrix-background { display:block; }
 // background style: "simple" for a calm dark background, or "matrix" for the animated effect.
 const BACKGROUND_STYLE = "matrix";
 const GAMES = [
-    { name: "ARC", url: "https://sites.google.com/view/devorastudiox/DSGS/arc", image: "", tag: "fianlly fixed lol" },
-    { name: "neon drift", url: "https://example.com/neon-drift", image: "", tag: "" },
-    { name: "pixel siege", url: "https://example.com/pixel-siege", image: "", tag: "" },
-    { name: "ghost protocol", url: "https://example.com/ghost-protocol", image: "", tag: "" },
-    { name: "cube arena", url: "https://example.com/cube-arena", image: "", tag: "" },
-    { name: "dark sector", url: "https://example.com/dark-sector", image: "", tag: "" }
+    { name: "ARC", url: "https://sites.google.com/view/devorastudiox/DSGS/arc", image: "https://github.com/NZMFr/devorastudios/blob/main/arcimage.png?raw=true", tag: "fianlly fixed lol" },
+    { name: "brotato", url: "https://sites.google.com/view/devorastudiox/DSGS/brotato", image: "https://github.com/NZMFr/devorastudios/blob/main/brotato.jpg?raw=true", tag: "" },
+    { name: "cluster rush", url: "https://sites.google.com/view/devorastudiox/DSGS/cluster-rush", image: "https://github.com/NZMFr/devorastudios/blob/main/clusterrush.png?raw=true", tag: "" },
+    { name: "geometry dash", url: "https://sites.google.com/view/devorastudiox/DSGS/geometry-dash", image: "https://github.com/NZMFr/devorastudios/blob/main/geometrydash.jpeg?raw=true", tag: "" },
+    { name: "goober world", url: "https://sites.google.com/view/devorastudiox/DSGS/goober-world", image: "https://github.com/NZMFr/devorastudios/blob/main/gooberworld.png?raw=true", tag: "" },
+    { name: "retro bowl", url: "https://sites.google.com/view/devorastudiox/DSGS/retro-bowl", image: "https://github.com/NZMFr/devorastudios/blob/main/retrobowl.jpeg?raw=true", tag: "" },
+    { name: "snow rider 3d", url: "https://sites.google.com/view/devorastudiox/DSGS/snow-rider-3d", image: "https://github.com/NZMFr/devorastudios/blob/main/snowrider3d.jpeg?raw=true", tag: "" },
+    { name: "stickman duel", url: "https://sites.google.com/view/devorastudiox/DSGS/stickman-duel", image: "https://github.com/NZMFr/devorastudios/blob/main/stickmanduel.png?raw=true", tag: "" },
+    { name: "undertale", url: "https://sites.google.com/view/devorastudiox/DSGS/undertale", image: "https://github.com/NZMFr/devorastudios/blob/main/undertale.png?raw=true", tag: "" },
 ];
-/* ============================================================ */
+/* { name: "", url: "", image: "", tag: "" }, */
 
 document.body.classList.add(BACKGROUND_STYLE === 'matrix' ? 'matrix-background' : 'simple-background');
 const canvas = document.getElementById('matrix-background');
@@ -394,7 +396,7 @@ function updateGamesLayout(){
  document.getElementById('layout-horizontal').classList.toggle('active',gamesLayout==='horizontal');
  document.getElementById('layout-grid').setAttribute('aria-pressed',String(gamesLayout==='grid'));
  document.getElementById('layout-horizontal').setAttribute('aria-pressed',String(gamesLayout==='horizontal'));
- document.getElementById('games-scroll-hint').textContent=gamesLayout==='grid'?'games fit to your screen':'scroll sideways to see more games';
+ document.getElementById('games-scroll-hint').textContent=gamesLayout==='grid'?'portrait layout':'landscape layout';
 }
 function renderGames(){
  const box=document.getElementById('games-scroll'); box.innerHTML='';
@@ -404,7 +406,7 @@ function renderGames(){
   card.querySelector('.game-name').textContent=game.name;
   if(game.tag) card.querySelector('.game-tag').textContent=game.tag;
   if(game.image){const img=document.createElement('img');img.src=game.image;img.alt=game.name+' artwork';img.loading='lazy';img.onerror=()=>img.remove();card.querySelector('.game-art').prepend(img);}
-  card.addEventListener('click',()=>{if(game.url&&!game.url.includes('example.com'))window.location.href=game.url;else showToast('add a working game link in the games settings');});
+  card.addEventListener('click',()=>{if(game.url&&!game.url.includes('example.com'))window.open(game.url,'_blank','noopener');else showToast('add a working game link in the games settings');});
   const inner=card.querySelector('.game-card-inner');
   card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();inner.style.transform=`rotateX(${((e.clientY-r.top)/r.height-.5)*-7}deg) rotateY(${((e.clientX-r.left)/r.width-.5)*7}deg)`;});
   card.addEventListener('mouseleave',()=>inner.style.transform='rotateX(0deg) rotateY(0deg)');
